@@ -1,159 +1,139 @@
-function scrollToSection(id) {
-  const section = document.getElementById(id);
-  if (section) {
-    section.scrollIntoView({ behavior: "smooth" });
-  }
-}
+// --- Intersection Observer for Reveal Effect ---
+const revealElements = document.querySelectorAll('.reveal');
 
-// ===============================
-// EFECTO FADE-IN AL HACER SCROLL
-// ===============================
-const elementos = document.querySelectorAll("section, .proyecto");
+const revealOnScroll = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.15 });
 
-function activarFade() {
-  const gatillo = window.innerHeight * 0.85;
+revealElements.forEach(el => revealOnScroll.observe(el));
 
-  elementos.forEach(el => {
-    const distancia = el.getBoundingClientRect().top;
-    if (distancia < gatillo) {
-      el.classList.add("visible");
-    }
-  });
-}
-
-window.addEventListener("scroll", activarFade);
-window.addEventListener("load", activarFade);
-
-// ===============================
-// EFECTO NEÓN SUAVE EN HEADER
-// ===============================
-const header = document.querySelector("header");
-
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 50) {
-    header.style.boxShadow = "0 0 25px rgba(0,255,204,0.5)";
-    header.style.background = "rgba(0,0,0,0.85)";
-  } else {
-    header.style.boxShadow = "0 0 15px rgba(0,255,204,0.3)";
-    header.style.background = "rgba(0,0,0,0.7)";
-  }
-});
-
-// ===============================
-// EFECTO BRILLO PULSANTE EN TEXTOS
-// ===============================
-const textosBrillantes = document.querySelectorAll("h2, h1");
-
-textosBrillantes.forEach(t => {
-  t.addEventListener("mouseenter", () => {
-    t.style.textShadow = "0 0 25px #00ffcc, 0 0 50px #00b894";
-  });
-  t.addEventListener("mouseleave", () => {
-    t.style.textShadow = "0 0 15px #00ffcc, 0 0 30px #00b894";
-  });
-});
-
-
-// ===============================
-// EFECTO DE PARTÍCULAS FLOTANTES
-// ===============================
+// --- Enhanced Particles Background ---
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
 let particlesArray;
-const colors = ["#00ffcc", "#00b894", "#00ffc8"];
+const colors = ["#00f2ff", "#7000ff", "#ffffff"];
 
 function initParticles() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  particlesArray = [];
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    particlesArray = [];
 
-  for (let i = 0; i < 60; i++) {
-    const size = Math.random() * 3 + 1;
-    const x = Math.random() * canvas.width;
-    const y = Math.random() * canvas.height;
-    const speedX = (Math.random() - 0.5) * 0.6;
-    const speedY = (Math.random() - 0.5) * 0.6;
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    particlesArray.push({ x, y, size, speedX, speedY, color });
-  }
+    const numberOfParticles = (canvas.width * canvas.height) / 15000;
+    for (let i = 0; i < numberOfParticles; i++) {
+        const size = Math.random() * 2 + 0.5;
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const speedX = (Math.random() - 0.5) * 0.4;
+        const speedY = (Math.random() - 0.5) * 0.4;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const opacity = Math.random() * 0.5 + 0.1;
+        particlesArray.push({ x, y, size, speedX, speedY, color, opacity });
+    }
 }
 
 function animateParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particlesArray.forEach(p => {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fillStyle = p.color;
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = p.color;
-    ctx.fill();
-    p.x += p.speedX;
-    p.y += p.speedY;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    particlesArray.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.opacity;
+        ctx.fill();
 
-    if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-    if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-  });
-  requestAnimationFrame(animateParticles);
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+    });
+    requestAnimationFrame(animateParticles);
 }
 
-window.addEventListener("resize", initParticles);
+window.addEventListener("resize", () => {
+    initParticles();
+});
+
 initParticles();
 animateParticles();
 
-// ===============================
-// LÓGICA DE LA VENTANA MODAL
-// ===============================
+// --- Gallery Lightbox Logic ---
+const project1Images = [
+    "Auditoría de onolaciones-0.png",
+    "Catálogo-0.png",
+    "Catálogo-1.png",
+    "Clientes VIP-0.png",
+    "Configuración del negocio-0.png",
+    "Corte de caja-0.png",
+    "Dashboard-0.png",
+    "Dashboard-1.png",
+    "Gestión de categorías-0.png",
+    "Gestión de envíos-0.png",
+    "Gestión de usuarios-0.png",
+    "Historial de mermas-0.png",
+    "Menú administración-0.png",
+    "Movimientos de inventario-0.png",
+    "Producto del catálogo-0.png",
+    "Punto de venta-0.png",
+    "Rendimiento de empleados-0.png",
+    "Reportes de merma-0.png",
+    "Venta del día-0.png"
+];
 
-// 1. Seleccionar todos los botones que abren un modal
-const openModalButtons = document.querySelectorAll('[data-modal-target]');
-// 2. Seleccionar todos los botones que cierran un modal
-const closeModalButtons = document.querySelectorAll('[data-close-button]');
-// 3. Seleccionar el fondo oscuro (overlay)
-const overlay = document.getElementById('overlay');
+let currentImgIndex = 0;
+const modal = document.getElementById('gallery-modal');
+const modalImg = document.getElementById('gallery-img');
+const caption = document.getElementById('gallery-caption');
+const openBtn = document.getElementById('open-gallery');
+const closeBtn = document.querySelector('.close-gallery');
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtn = document.querySelector('.next-btn');
 
-// --- Abrir un Modal ---
-function openModal(modal) {
-    if (modal == null) return;
-    modal.classList.add('active'); // Muestra el modal
-    overlay.classList.add('active'); // Muestra el fondo
+function updateGallery() {
+    const fileName = project1Images[currentImgIndex];
+    modalImg.src = `Portafolio-web/img/Proyecto1/${fileName}`;
+    caption.textContent = fileName.replace('-0.png', '').replace('-1.png', '');
 }
 
-// --- Cerrar un Modal ---
-function closeModal(modal) {
-    if (modal == null) return;
-    modal.classList.remove('active'); // Oculta el modal
-    overlay.classList.remove('active'); // Oculta el fondo
+if (openBtn) {
+    openBtn.onclick = () => {
+        currentImgIndex = 0;
+        updateGallery();
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
 }
 
-// --- Añadir Eventos a los Botones de ABRIR ---
-openModalButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // 1. Obtiene el objetivo del atributo "data-modal-target" (ej: "#modal-pos")
-        const modalSelector = button.dataset.modalTarget;
-        // 2. Selecciona ese modal específico
-        const modal = document.querySelector(modalSelector);
-        // 3. Abre el modal
-        openModal(modal);
-    });
-});
+const closeModal = () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+};
 
-// --- Añadir Eventos a los Botones de CERRAR (la 'X') ---
-closeModalButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // 1. Busca el modal "padre" más cercano
-        const modal = button.closest('.modal');
-        // 2. Cierra ese modal
-        closeModal(modal);
-    });
-});
+closeBtn.onclick = closeModal;
+modal.onclick = (e) => { if (e.target === modal) closeModal(); };
 
-// --- Cerrar el modal al hacer clic en el fondo oscuro ---
-overlay.addEventListener('click', () => {
-    // 1. Busca todos los modales que estén activos
-    const modals = document.querySelectorAll('.modal.active');
-    // 2. Cierra cada uno de ellos
-    modals.forEach(modal => {
-        closeModal(modal);
-    });
+prevBtn.onclick = (e) => {
+    e.stopPropagation();
+    currentImgIndex = (currentImgIndex > 0) ? currentImgIndex - 1 : project1Images.length - 1;
+    updateGallery();
+};
+
+nextBtn.onclick = (e) => {
+    e.stopPropagation();
+    currentImgIndex = (currentImgIndex < project1Images.length - 1) ? currentImgIndex + 1 : 0;
+    updateGallery();
+};
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('active')) return;
+    if (e.key === 'ArrowLeft') prevBtn.click();
+    if (e.key === 'ArrowRight') nextBtn.click();
+    if (e.key === 'Escape') closeModal();
 });
