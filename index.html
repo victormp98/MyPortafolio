@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portafolio de Victor Manuel Perez, Desarrollador de Software enfocado en crear soluciones digitales robustas y escalables." />
+    <meta property="og:title" content="Victor Manuel Perez | Full Stack Dev" />
+    <meta property="og:description" content="Portafolio de Victor Manuel Perez, Desarrollador de Software." />
+    <meta property="og:image" content="img/perfil/yo-portafollio.jpeg" />
+    <meta name="theme-color" content="#020202" />
     <title>Victor Manuel Perez | Full Stack Dev</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
     <link rel="stylesheet" href="style.css" />
@@ -12,7 +17,8 @@
 
     <nav>
         <div class="logo">VP.DEV</div>
-        <ul class="nav-links">
+        <button class="mobile-menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">☰</button>
+        <ul class="nav-links" id="nav-links">
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#proyectos">Proyectos</a></li>
             <li><a href="#sobre-mi">Sobre mí</a></li>
@@ -20,107 +26,100 @@
         </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="inicio" class="hero">
-        <div class="hero-text">
-            <h1 class="reveal">Hola, soy<br><span>Victor Manuel</span></h1>
-            <p class="reveal">Desarrollador de Software enfocado en crear soluciones digitales <strong>robustas, escalables y visualmente impactantes</strong>.</p>
-            <div class="hero-btns reveal">
-                <a href="#proyectos" class="btn-primary">Ver Proyectos</a>
-            </div>
-        </div>
-        <div class="hero-visual reveal">
-            <div class="profile-container">
-                <div class="profile-bg"></div>
-                <img src="Portafolio-web/img/perfil/yo-portafollio.jpeg" alt="Victor Manuel Perez" class="profile-img" />
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="proyectos">
-        <h2 class="reveal">Proyectos Destacados</h2>
-        <div class="projects-container">
-            <!-- Proyecto 1: POS -->
-            <div class="project-card reveal">
-                <div class="project-img-wrapper">
-                    <img src="Portafolio-web/img/Proyecto1/Punto de venta-0.png" alt="Sistema POS" />
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-text">
+                <h1 class="reveal">Hola, soy<br><span>Victor Manuel</span></h1>
+                <p class="reveal">Desarrollador de Software enfocado en crear soluciones digitales <strong>robustas, escalables y visualmente impactantes</strong>.</p>
+                <div class="hero-btns reveal">
+                    <a href="#proyectos" class="btn-primary">Ver Proyectos</a>
                 </div>
-                <div class="project-info">
-                    <div class="tag-list">
-                        <span class="tag">C# .NET</span>
-                        <span class="tag">MySQL</span>
-                        <span class="tag">N-Tier Architecture</span>
+            </div>
+            <div class="hero-visual reveal">
+                <div class="profile-container">
+                    <div class="profile-bg"></div>
+                    <img src="img/perfil/yo-portafollio.jpeg" alt="Victor Manuel Perez" class="profile-img" />
+                </div>
+            </div>
+        </section>
+
+        <section id="proyectos">
+            <h2 class="reveal">Proyectos Destacados</h2>
+            <div class="projects-container">
+                <div class="project-card reveal">
+                    <div class="project-img-wrapper">
+                        <img src="img/proyecto1/Punto de venta-0.png" alt="Sistema POS" />
                     </div>
-                    <h3>Sistema de Punto de Venta (POS)</h3>
-                    <p>Gestión integral de inventario, ventas y reportes con arquitectura de 3 capas. Incluye módulos de administración de usuarios, categorías y seguimiento de mermas.</p>
-                    <button id="open-gallery" class="btn-primary" style="padding: 10px 25px; font-size: 0.9rem; cursor: pointer;">Ver Todas las Fotos</button>
-                </div>
-            </div>
-
-            <!-- Proyecto 2: Placeholder -->
-            <div class="project-card reveal">
-                <div class="project-img-wrapper">
-                    <img src="img/Proyecto2.png" alt="Proyecto en camino" style="filter: grayscale(1) opacity(0.3);" />
-                </div>
-                <div class="project-info">
-                    <div class="tag-list">
-                        <span class="tag">Próximamente</span>
+                    <div class="project-info">
+                        <div class="tag-list">
+                            <span class="tag">C# .NET</span>
+                            <span class="tag">MySQL</span>
+                            <span class="tag">N-Tier Architecture</span>
+                        </div>
+                        <h3>Sistema de Punto de Venta (POS)</h3>
+                        <p>Gestión integral de inventario, ventas y reportes con arquitectura de 3 capas. Incluye módulos de administración de usuarios, categorías y seguimiento de mermas.</p>
+                        <button id="open-gallery" class="btn-primary btn-gallery">Ver Todas las Fotos</button>
                     </div>
-                    <h3>Nuevo Proyecto</h3>
-                    <p>Estoy trabajando en algo increíble. Vuelve pronto para ver las actualizaciones y las nuevas funcionalidades.</p>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-img-wrapper">
+                        <img src="img/proyecto2/placeholder.png" alt="Proyecto en camino" class="img-placeholder" />
+                    </div>
+                    <div class="project-info">
+                        <div class="tag-list">
+                            <span class="tag">Próximamente</span>
+                        </div>
+                        <h3>Nuevo Proyecto</h3>
+                        <p>Estoy trabajando en algo increíble. Vuelve pronto para ver las actualizaciones y las nuevas funcionalidades.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Gallery Modal -->
-    <div id="gallery-modal" class="gallery-modal">
+        <section id="sobre-mi">
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <h2>Sobre mí</h2>
+                    <p>Estudiante de Ingeniería en Sistemas Computacionales con pasión por el backend y la arquitectura de software. Me especializo en transformar problemas complejos en código limpio y eficiente.</p>
+                    <div class="skills-container">
+                        <div class="skill-box">
+                            <h4>🔥 Backend Stack</h4>
+                            <p>C#, Python, Java, .NET Framework</p>
+                        </div>
+                        <div class="skill-box">
+                            <h4>🌐 Web & DB</h4>
+                            <p>JS (ES6+), HTML5/CSS3, MySQL, Workbench</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual reveal">
+                    <div class="skill-box skill-box-highlight">
+                        <h4>🎓 Formación</h4>
+                        <p>Certificado Full Stack (Aprende.org)<br>Ingeniería en Sistemas (En curso)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="contacto-section">
+            <h2 class="reveal">¿Hablamos?</h2>
+            <p class="reveal contacto-text">Estoy abierto a nuevas oportunidades y colaboraciones. Si tienes un proyecto en mente, no dudes en contactarme.</p>
+            <a href="mailto:victor.manuel.pp98@gmail.com" class="btn-primary reveal">Enviar Correo</a>
+        </section>
+    </main>
+
+    <div id="gallery-modal" class="gallery-modal" role="dialog" aria-modal="true" aria-label="Galería de imágenes del proyecto">
         <div class="modal-content">
-            <button class="close-gallery">&times;</button>
-            <button class="nav-btn prev-btn">&lsaquo;</button>
-            <img src="" alt="Gallery Image" class="gallery-img" id="gallery-img">
+            <button class="close-gallery" aria-label="Cerrar galería">&times;</button>
+            <button class="nav-btn prev-btn" aria-label="Imagen anterior">&lsaquo;</button>
+            <img src="" alt="Imagen de la galería" class="gallery-img" id="gallery-img">
             <div class="gallery-caption" id="gallery-caption"></div>
-            <button class="nav-btn next-btn">&rsaquo;</button>
+            <button class="nav-btn next-btn" aria-label="Siguiente imagen">&rsaquo;</button>
         </div>
     </div>
 
-    <!-- About Section -->
-    <section id="sobre-mi">
-        <div class="about-grid">
-            <div class="about-text reveal">
-                <h2>Sobre mí</h2>
-                <p>Estudiante de Ingeniería en Sistemas Computacionales con pasión por el backend y la arquitectura de software. Me especializo en transformar problemas complejos en código limpio y eficiente.</p>
-                <div style="margin-top: 30px;">
-                    <div class="skill-box">
-                        <h4>🔥 Backend Stack</h4>
-                        <p>C#, Python, Java, .NET Framework</p>
-                    </div>
-                    <div class="skill-box">
-                        <h4>🌐 Web & DB</h4>
-                        <p>JS (ES6+), HTML5/CSS3, MySQL, Workbench</p>
-                    </div>
-                </div>
-            </div>
-            <div class="about-visual reveal">
-                <!-- Puedes agregar una ilustración o más detalles aquí -->
-                <div class="skill-box" style="border-left: 4px solid var(--primary);">
-                    <h4>🎓 Formación</h4>
-                    <p>Certificado Full Stack (Aprende.org)<br>Ingeniería en Sistemas (En curso)</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contacto" style="text-align: center;">
-        <h2 class="reveal">¿Hablamos?</h2>
-        <p class="reveal" style="max-width: 600px; margin: 0 auto 40px;">Estoy abierto a nuevas oportunidades y colaboraciones. Si tienes un proyecto en mente, no dudes en contactarme.</p>
-        <a href="mailto:victor.manuel.pp98@gmail.com" class="btn-primary reveal">Enviar Correo</a>
-    </section>
-
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/528995450574" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/528995450574" class="whatsapp-float" target="_blank" aria-label="Contactar por WhatsApp">
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
             <path d="M16 2a14 14 0 0 0-14 14 13.9 13.9 0 0 0 2.2 7.5L2 30l6.7-1.8A13.9 13.9 0 0 0 16 30a14 14 0 0 0 0-28zm7.5 19.5c-.3.8-1.5 1.5-2.1 1.6-.6.1-1.3.2-3.8-1-3.2-1.3-5.2-4.5-5.4-4.8-.2-.3-1.4-2-1.4-3.8 0-1.8.9-2.7 1.3-3 .3-.3.8-.5 1.2-.5h.4c.3 0 .6 0 .8.6.3.6 1.1 2.6 1.2 2.8.1.2.1.4 0 .6s-.2.4-.4.6c-.2.2-.4.5-.6.6-.2.2-.4.4-.2.9.2.5 1.1 1.8 2.3 2.9 1.6 1.4 3 1.9 3.4 2.1.4.2.7.2.9-.1.2-.3.9-1 .1.2-1.2-1.7 4 3 4 5.3 0 .7-.1 1.3-.4 2z"/>
         </svg>

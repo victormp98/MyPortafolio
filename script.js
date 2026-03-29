@@ -18,6 +18,7 @@ const ctx = canvas.getContext("2d");
 
 let particlesArray;
 const colors = ["#00f2ff", "#7000ff", "#ffffff"];
+let animationId; // Variable para almacenar el ID de la animación
 
 function initParticles() {
     canvas.width = window.innerWidth;
@@ -53,8 +54,18 @@ function animateParticles() {
         if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
         if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
     });
-    requestAnimationFrame(animateParticles);
+    // Guardamos el ID para poder pausarla
+    animationId = requestAnimationFrame(animateParticles);
 }
+
+// Rendimiento: Pausar partículas si la pestaña no es visible
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+        cancelAnimationFrame(animationId);
+    } else {
+        animateParticles();
+    }
+});
 
 window.addEventListener("resize", () => {
     initParticles();
@@ -87,6 +98,7 @@ const project1Images = [
 ];
 
 let currentImgIndex = 0;
+let previousActiveElement; // Variable para restaurar el foco del teclado
 const modal = document.getElementById('gallery-modal');
 const modalImg = document.getElementById('gallery-img');
 const caption = document.getElementById('gallery-caption');
@@ -97,22 +109,33 @@ const nextBtn = document.querySelector('.next-btn');
 
 function updateGallery() {
     const fileName = project1Images[currentImgIndex];
-    modalImg.src = `Portafolio-web/img/Proyecto1/${fileName}`;
+    // Ruta ajustada para coincidir exactamente con la estructura de carpetas
+    modalImg.src = `img/proyecto1/${fileName}`;
     caption.textContent = fileName.replace('-0.png', '').replace('-1.png', '');
 }
 
 if (openBtn) {
     openBtn.onclick = () => {
+        previousActiveElement = document.activeElement; // Guardar qué elemento tenía el foco
         currentImgIndex = 0;
         updateGallery();
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        
+        // Enfocar el modal por accesibilidad
+        modal.setAttribute('tabindex', '-1');
+        modal.focus();
     };
 }
 
 const closeModal = () => {
     modal.classList.remove('active');
     document.body.style.overflow = 'auto';
+    
+    // Restaurar el foco al botón que abrió el modal
+    if (previousActiveElement) {
+        previousActiveElement.focus();
+    }
 };
 
 closeBtn.onclick = closeModal;
@@ -137,3 +160,23 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') nextBtn.click();
     if (e.key === 'Escape') closeModal();
 });
+
+// --- Lógica del Menú Móvil ---
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navLinks = document.getElementById('nav-links');
+
+if (mobileMenuBtn && navLinks) {
+    mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        const isExpanded = navLinks.classList.contains('active');
+        mobileMenuBtn.setAttribute('aria-expanded', isExpanded);
+    });
+
+    // Cerrar menú al hacer clic en un enlace
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        });
+    });
+}
