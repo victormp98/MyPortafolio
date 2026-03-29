@@ -109,8 +109,8 @@ const nextBtn = document.querySelector('.next-btn');
 
 function updateGallery() {
     const fileName = project1Images[currentImgIndex];
-    // Ruta ajustada para coincidir exactamente con la estructura de carpetas
-    modalImg.src = `img/proyecto1/${fileName}`;
+    // Ruta original restaurada para el JS
+    modalImg.src = `Portafolio-web/img/Proyecto1/${fileName}`;
     caption.textContent = fileName.replace('-0.png', '').replace('-1.png', '');
 }
 
